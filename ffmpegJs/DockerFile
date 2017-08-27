@@ -1,0 +1,8 @@
+FROM ubuntu:16.04
+
+RUN apt-get update
+RUN apt-get install -y build-essential cmake default-jre python2.7 nodejs wget
+RUN wget https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz
+RUN tar -xvzf emsdk-portable.tar.gz
+RUN ls -l
+RUN sleep 10000
