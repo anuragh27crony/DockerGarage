@@ -1,8 +1,7 @@
 FROM ubuntu:16.04
-
-RUN apt-get update
-RUN apt-get install -y build-essential cmake default-jre python2.7 nodejs wget
-RUN wget https://s3.amazonaws.com/mozilla-games/emscripten/releases/emsdk-portable.tar.gz
-RUN tar -xvzf emsdk-portable.tar.gz
+RUN apt-get update --fix-missing
+RUN apt-get install -y build-essential cmake default-jre python2.7 nodejs wget git-core
+RUN mkdir GitRepos & cd GitRepos & mkdir myfastcomp & cd myfastcomp & git clone https://github.com/kripken/emscripten-fastcomp & cd emscripten-fastcomp & git clone https://github.com/kripken/emscripten-fastcomp-clang tools/clang & mkdir build & cd build
+RUN cmake .. -DCMAKE_BUILD_TYPE=Release -DLLVM_TARGETS_TO_BUILD="X86;JSBackend" -DLLVM_INCLUDE_EXAMPLES=OFF -DLLVM_INCLUDE_TESTS=OFF -DCLANG_INCLUDE_EXAMPLES=OFF -DCLANG_INCLUDE_TESTS=OFF
 RUN ls -l
 RUN sleep 10000
