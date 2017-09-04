@@ -27,7 +27,7 @@ RUN cd GitRepos/emscripten && ./emcc --help &&  sed -i "s/LLVM_ROOT.*/LLVM_ROOT=
 
 #ADD PATH & CLONE VIDEO CONVERTER REPO AND START BUILDING LGPL BUILD VERSION
 # RUN export PATH=$PATH:/GitRepos/myfastcomp/emscripten-fastcomp/build/bin:/GitRepos/emscripten:/usr/bin/nodejs && cd GitRepos && git clone https://github.com/bgrins/videoconverter.js.git && cd videoconverter.js/build && ./build_lgpl.sh
-RUN export PATH=$PATH:/GitRepos/myfastcomp/emscripten-fastcomp/build/bin:/GitRepos/emscripten:/usr/bin/nodejs &&  cd GitRepos && git clone https://github.com/anuragh27crony/videoconverter.js.git && cd videoconverter.js/build && chmod +x build_custom.sh && ./build_custom.sh && ls -lh
+RUN export PATH=$PATH:/GitRepos/myfastcomp/emscripten-fastcomp/build/bin:/GitRepos/emscripten:/usr/bin/nodejs &&  cd GitRepos && git clone https://github.com/anuragh27crony/videoconverter.js.git && cd videoconverter.js/build && chmod +x build_custom.sh && ./build_custom.sh && ls -lhtr
 
 # RUN cd GitRepos && git clone git@github.com:Kagami/ffmpeg.js.git && cd ffmpeg.js && git submodule init && git submodule update --recursive
 # RUN export PATH=$PATH:/GitRepos/myfastcomp/emscripten-fastcomp/build/bin:/GitRepos/emscripten:/usr/bin/nodejs && cd GitRepos/ffmpeg.js && cd build/fribidi/ && ./bootstrap && ./configure && cd ../.. && make all
