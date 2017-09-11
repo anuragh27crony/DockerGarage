@@ -1,0 +1,59 @@
+function PostBlob(blob) {
+                    var aab;
+                    var buffersReady;
+                    var workerReady;
+                    var posted;
+
+                    var fileReader = new FileReader();
+                    fileReader.onload = function() {
+                        aab = this.result;
+                        postMessage();
+                    };
+                    fileReader.readAsArrayBuffer(blob);
+
+                    if (!worker) {
+                        worker = processInWebWorker();
+                    }
+
+                    worker.onmessage = function(event) {
+                        var message = event.data;
+                        if (message.type == "ready") {
+                            log('<a href="'+ workerPath +'" download="ffmpeg.js">ffmpeg.js</a> file has been loaded.');
+
+                            workerReady = true;
+                            if (buffersReady)
+                                postMessage_jpeg();
+                        } else if (message.type == "stdout") {
+                            log(message.data);
+                        } else if (message.type == "start") {
+                            log('<a href="'+ workerPath +'" download="ffmpeg.js">ffmpeg.js</a> file received ffmpeg command.');
+                        } else if (message.type == "done") {
+                            log(JSON.stringify(message));
+
+                            var result = message.data[0];
+                            log(JSON.stringify(result));
+
+                            var blob2 = new File([result.data], 'test.mp4', {
+                                type: 'video/mp4'
+                            });
+
+                            log(JSON.stringify(blob2));
+
+                            PostBlob(blob2);
+                        }
+                    };
+                    var postMessage_jpeg = function() {
+                        posted = true;
+
+                        worker.postMessage({
+                            type: 'command',
+                            arguments: '-i video.webm -c:v mpeg4 -b:v 6400k -strict experimental output.mp4'.split(' '),
+                            files: [
+                                {
+                                    data: new Uint8Array(aab),
+                                    name: 'video.webm'
+                                }
+                            ]
+                        });
+                    };
+                }
