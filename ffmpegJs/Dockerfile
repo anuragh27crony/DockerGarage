@@ -34,4 +34,4 @@ RUN export PATH=$PATH:/GitRepos/myfastcomp/emscripten-fastcomp/build/bin:/GitRep
 
 
 # RUN ls -l /tmp && pwd && cp -rf /GitRepos/videoconverter.js/build/*.js /tmp/hostfolder/ 
-RUN sleep 10000
+# RUN sleep 10000
